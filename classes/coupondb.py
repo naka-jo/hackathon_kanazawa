@@ -1,7 +1,7 @@
 import sqlite3
 import json
 
-def create_table(table):
+def create_table(table): # テーブルを作成
     conn = sqlite3.connect(f"../database/coupon.db")
     cur = conn.cursor()
     cur.execute(
@@ -10,14 +10,14 @@ def create_table(table):
     conn.commit()
     conn.close()
 
-def insert_db(table, data):
+def insert_db(table, data): # データを追加
     conn = sqlite3.connect(f"../database/coupon.db")
     cur = conn.cursor()
     cur.execute(f"INSERT INTO {table}(id, data, discount, store, category, remarks) values(?, ?, ?, ?, ?, ?);", data)
     conn.commit()
     conn.close()
 
-def select_db(table):
+def select_db(table): # データを取得
     conn = sqlite3.connect(f"../database/coupon.db")
     cur = conn.cursor()
     cur.execute(f"SELECT * FROM {table};")
@@ -31,7 +31,7 @@ def select_db(table):
     with open(f'../database/json/{table}.json', 'w') as f:
         json.dump(result, f, indent=4, ensure_ascii = False)
 
-def delete_table(table, id):
+def delete_table(table, id): # データを消去
     conn = sqlite3.connect(f"../database/coupon.db")
     cur = conn.cursor()
     cur.execute(f"DELETE FROM {table} WHERE id={id};")
