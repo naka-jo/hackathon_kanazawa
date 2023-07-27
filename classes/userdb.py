@@ -4,7 +4,7 @@ from email_validator import *
 
 class UserDB:
     def __init__(self, email=None, password=None):
-        self.con = sqlite3.connect('../database/users.db')
+        self.con = sqlite3.connect('./database/users.db')
         self.cur = self.con.cursor()
 
         self.id = str(uuid.uuid4()).split("-")[-1] # id自動生成
@@ -16,7 +16,10 @@ class UserDB:
         self.cur.execute('SELECT * FROM USERS;')
         userdb = [{"email":i[1] ,"password":i[2]} for i in self.cur]
         return userdb
-
+    
+    def getid_byemail(self): # emailからidを取得
+        self.cur.execute('SELECT id FROM USERS WHERE email = ? ;', (self.email,))
+        return list(self.cur)[0][0]
 
     def logincheck(self): # ログイン時に入力情報が正しいかチェック
         userdb = self.get()
@@ -27,17 +30,17 @@ class UserDB:
             return False
 
 
-    def emailcheck(self, email): # アカウント登録時にメールアドレスをチェック
+    def emailcheck(self): # アカウント登録時にメールアドレスをチェック
         try: # メールアドレスかどうかチェック
-            validate_email(email, check_deliverability=False)
+            validate_email(self.email, check_deliverability=False)
         except:
             return False
         else: # すでに使われていないかチェック
-            self.cur.execute("SELECT * FROM USERS WHERE email = ?;", (email,))
+            self.cur.execute("SELECT * FROM USERS WHERE email = ?;", (self.email,))
             if len(list(self.cur)) == 0:
-                return False
-            else:
                 return True
+            else:
+                return False
     
 
     def insert(self): # DBにユーザーを追加
@@ -59,6 +62,6 @@ class UserDB:
 
 
 if __name__ == "__main__":
-    db = UserDB()
-    print(db.emailcheck("a"))
-    db.close()
+    db = UserDB("example@ac.jp", "aiueo1234")
+    # db.insert()
+    print(list(db.getid_byemail())[0][0])
