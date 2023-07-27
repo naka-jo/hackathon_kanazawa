@@ -1,21 +1,51 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for, flash
+from classes.userdb import UserDB
+import uuid
 
 app = Flask(__name__, static_folder="./static")
-
+app.config["SECRET_KEY"] = str(uuid.uuid4().hex)
+UserDB().reset()
 
 @app.route("/login", methods=["GET", "POST"])
-def login():
+def login(): # ログイン画面
     if request.method == "GET":
       return render_template("login.html")
+    else:
+      email = request.form["email"]
+      password = request.form["password"] # get email & password
+      user = UserDB(email, password)
+      user_id = user.getid_byemail()
+
+      if user.logincheck():
+        return redirect(url_for("home", id=user_id)) # 登録成功 -> idのurlに飛ぶ
+      else:
+        flash("入力が正しくありません")
+        return redirect(url_for("login"))
+
+
 
 @app.route("/account", methods=["GET", "POST"])
-def account():
+def account(): # アカウント登録
     if request.method == "GET":
       return render_template("account.html")
+    else:
+      email = request.form["email"]
+      password = request.form["password"] # get email & password
+      user = UserDB(email, password)
 
-@app.route("/home", methods=["GET", "POST"])
-def home():
+      if user.emailcheck(): # 有効なemailかcheck
+        user.insert()
+        return redirect(url_for("home", id=user.id)) # 登録成功 -> DB登録
+      else:
+        flash('このメールアドレスは既に使われているか、使用できません')
+        return redirect(url_for("account"))
+
+
+
+@app.route("/home/<string:id>", methods=["GET", "POST"])
+def home(id):
     if request.method == "GET":
+      
       return render_template("home.html")
 
 

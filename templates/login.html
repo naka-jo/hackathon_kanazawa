@@ -9,11 +9,17 @@
     <h1>ログイン</h1>
     <form method="POST">
         <p>メールアドレス</p>
-        <input type="text" name="email">
+        <input type="text" id="email" name="email" onkeyup="inputcheck()">
         <p>パスワード</p>
-        <input type="password" name="password">
-        <input type="submit" value="ログイン">
+        <input type="password" id="password" name="password" onkeyup="inputcheck()">
+        <input type="submit" id="submit" value="ログイン" disabled>
+        {% with flash = get_flashed_messages() %}
+            {% if flash[0] %}
+            <p>{{ flash[0] }}</p>
+            {% endif %}
+        {% endwith %}
         <a href="/account">アカウント登録</a>
     </form>
+    <script type="text/javascript" src="../static/js/login.js"></script>
 </body>
 </html>
