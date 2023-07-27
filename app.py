@@ -45,7 +45,7 @@ def account(): # アカウント登録
 @app.route("/home/<string:id>", methods=["GET", "POST"])
 def home(id):
     if request.method == "GET":
-      
+      # test
       return render_template("home.html")
 
 
