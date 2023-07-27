@@ -1,5 +1,5 @@
 import sqlite3
-import uuid
+import random, string, uuid
 from email_validator import *
 
 class UserDB:
@@ -7,7 +7,7 @@ class UserDB:
         self.con = sqlite3.connect('./database/users.db')
         self.cur = self.con.cursor()
 
-        self.id = str(uuid.uuid4()).split("-")[-1] # id自動生成
+        self.id = random.choice(string.ascii_lowercase) + str(uuid.uuid4()).split("-")[-1] # id自動生成
         self.email = email
         self.password = password
 
@@ -62,6 +62,6 @@ class UserDB:
 
 
 if __name__ == "__main__":
-    db = UserDB("example@ac.jp", "aiueo1234")
-    # db.insert()
-    print(list(db.getid_byemail())[0][0])
+    db = UserDB("example@ac.jp", "1")
+    #db.insert()
+    #print(list(db.getid_byemail())[0][0])
