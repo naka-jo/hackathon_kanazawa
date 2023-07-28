@@ -15,12 +15,12 @@ def login(): # ログイン画面
     email = request.form["email"]
     password = request.form["password"] # get email & password
     user = UserDB(email, password)
-    user_id = user.getid_byemail()
 
     if user.logincheck():
+      user_id = user.getid_byemail()
       return redirect(url_for("home", id=user_id)) # 登録成功 -> idのurlに飛ぶ
     else:
-      flash("入力が正しくありません")
+      flash("※入力が正しくありません")
       return redirect(url_for("login"))
 
 
@@ -51,6 +51,17 @@ def home(id):
       return render_template("home.html", user_data=user_data)
     else:
       return render_template("home.html")
+
+
+
+@app.route("/coupon", methods=["GET", "POST"])
+def coupon(): # クーポン登録画面
+    if request.method == "GET":
+      return render_template("coupon.html")
+    else:
+      return render_template("coupon.html")
+    
+
 
 
 if __name__ == "__main__":
