@@ -31,10 +31,17 @@ def select_db(table): # データを取得
     with open(f'../database/json/{table}.json', 'w') as f:
         json.dump(result, f, indent=4, ensure_ascii = False)
 
-def delete_table(table, id): # データを消去
+def delete_row(table, id): # データを消去
     conn = sqlite3.connect(f"../database/coupon.db")
     cur = conn.cursor()
     cur.execute(f"DELETE FROM {table} WHERE id={id};")
+    conn.commit()
+    conn.close()
+    
+def drop_table(table):
+    conn = sqlite3.connect(f"../database/coupon.db")
+    cur = conn.cursor()
+    cur.execute(f'DROP TABLE {table}')
     conn.commit()
     conn.close()
 
@@ -45,5 +52,6 @@ def delete_table(table, id): # データを消去
 # data = [None, "8/3", "10%off", "スターバックス", "飲食", None]
 # insert_db(table, data)
 # delete_table(table, 3)
+# drop_table(table)
 # result = select_db(table)
 # print(result)
