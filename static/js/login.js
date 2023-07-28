@@ -4,8 +4,8 @@ function inputcheck() {
 
     const submit = document.getElementById("submit");
     if (email!="" && password!=""){
-        submit.disabled = true;
-    }else{
         submit.disabled = false;
+    }else{
+        submit.disabled = true;
     }
 }
