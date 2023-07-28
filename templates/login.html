@@ -4,21 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>qpON→GO! - ログイン</title>
+    <link rel="stylesheet" href="../static/css/login.css">
 </head>
 <body>
+    <img src="../static/img/logo.png">
     <h1>ログイン</h1>
     <form method="POST">
-        <p>メールアドレス</p>
-        <input type="text" id="email" name="email" onkeyup="inputcheck()">
-        <p>パスワード</p>
-        <input type="password" id="password" name="password" onkeyup="inputcheck()">
-        <input type="submit" id="submit" value="ログイン" disabled>
+        <input type="text" id="email" name="email" placeholder="メールアドレス" onkeyup="inputcheck()">
+        <br>
+        <input type="password" id="password" name="password" placeholder="パスワード" onkeyup="inputcheck()">
+        <br>
+        
         {% with flash = get_flashed_messages() %}
             {% if flash[0] %}
-            <p>{{ flash[0] }}</p>
+            <p class="flash">{{ flash[0] }}</p>
+            {% else %}
+            <br>
             {% endif %}
         {% endwith %}
-        <a href="/account">アカウント登録</a>
+        <input type="submit" id="submit" value="ログイン" disabled>
+        <div class="account">
+            <a href="/account">アカウント登録</a>
+        </div>
     </form>
     <script type="text/javascript" src="../static/js/login.js"></script>
 </body>

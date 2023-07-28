@@ -1,0 +1,54 @@
+body{
+    font-family: Font;
+    text-align: center;
+    color:rgba(52, 73, 94);
+    background-color: rgba(255,246,208);
+}@font-face {
+	font-family: 'Font';
+	src: url(../komorebi-gothic-P.ttf);
+}
+
+img{
+    width:180px;
+    height: auto;
+}
+
+h1{
+    font-size: 3rem;
+    padding-bottom:1%;
+    border-bottom: 6px double rgba(52, 73, 94);
+    margin: 0% 30%;
+    margin-bottom: 1%;
+}
+
+
+#email, #password{
+    margin:1% 0%;
+    padding:1%;
+    width: 30%;
+    font-size: 20px;
+}::placeholder{
+    font-family: 'Font';
+}
+
+#submit{
+    margin:1% 0%;
+    width:32%;
+    padding:1%;
+    font-size:20px;
+    font-family: 'Font';
+    background-color: rgba(52, 73, 94);
+    color:rgba(255,246,208);
+    opacity: 1;
+}#submit:disabled{
+    opacity: 0.8;
+}
+
+.account{
+    font-size: 20px;
+    margin-top: 1%;
+}
+
+.flash{
+    color:red;
+}
