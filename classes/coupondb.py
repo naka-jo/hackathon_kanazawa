@@ -1,5 +1,6 @@
 import sqlite3
 import json
+import os
 
 def create_table(table): # テーブルを作成
     conn = sqlite3.connect(f"./database/coupon.db")
@@ -37,12 +38,8 @@ def delete_table(table, id): # データを消去
     conn.commit()
     conn.close()
     
-def drop_table(table):
-    conn = sqlite3.connect(f"../database/coupon.db")
-    cur = conn.cursor()
-    cur.execute(f'DROP TABLE {table}')
-    conn.commit()
-    conn.close()
+def drop_db(): # テーブルを削除
+    os.remove('../database/coupon.db')
 
 # dbname = "coupon"
 # table = "kanra"
@@ -53,4 +50,4 @@ def drop_table(table):
 # delete_table(table, 3)
 # drop_table(table)
 # result = select_db(table)
-# print(json.loads(result))a
+# print(json.loads(result))
