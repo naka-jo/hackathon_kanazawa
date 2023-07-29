@@ -1,11 +1,15 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from classes.userdb import UserDB
 import classes.coupondb as CouponDB
-import uuid, json
+from classes.Image_to_Text import image_to_text
+import uuid, json, os, base64
 
 app = Flask(__name__, static_folder="./static")
 app.config["SECRET_KEY"] = str(uuid.uuid4().hex)
-#UserDB().reset()
+# UserDB().reset()
+# if os.path.exists("./database/coupon.db"):
+#   CouponDB.drop_db()
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login(): # ログイン画面
@@ -59,10 +63,28 @@ def coupon(): # クーポン登録画面
     if request.method == "GET":
       return render_template("coupon.html")
     else:
-      return render_template("coupon.html")
-    
+      images = request.files.getlist("image")
+      for image in images:
+        image.save(os.path.join("./cloud",image.filename))
+      if 0 < len(os.listdir("./cloud")) <= 2:
+        return redirect(url_for("coupon2"))
+      else:
+        flash("写真数が適切ではありません。リロードしてやり直してください")
+        return redirect(url_for("coupon"))
+        
 
-
+@app.route("/camera", methods=["POST"])
+def camera(): # カメラで撮影された画像を保存
+    data = request.json
+    if 'img' in data:
+      image_data = base64.b64decode(data['img'])
+      save_path = f"./cloud/{uuid.uuid4().hex}.jpg"
+      with open(save_path, 'wb') as f:
+          f.write(image_data)
+      return redirect(url_for("coupon"))
+    else:
+      return redirect(url_for("coupon"))
+      
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=8930, debug=True)
+    app.run(host="127.0.0.1", port=5596, debug=True)

@@ -4,18 +4,21 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>qpON→GO! - アカウント登録</title>
+      <link rel="stylesheet" href="../static/css/account.css">
 </head>
 <body>
+      <img src="../static/img/logo.png">
       <h1>アカウント登録</h1>
       <form method="POST">
-          <p>メールアドレス</p>
-          <input type="text" name="email" id="email" onkeyup="inputcheck()">
-          <p>パスワード</p>
-          <input type="password" name="password" id="password" onkeyup="inputcheck()">
-          <input type="password" name="repassword" id="repassword" onkeyup="inputcheck()">
+          <input type="text" name="email" id="email" placeholder="メールアドレス" onkeyup="inputcheck()">
+          <br>
+          <input type="password" name="password" id="password" placeholder="パスワード" onkeyup="inputcheck()">
+          <br>
+          <input type="password" name="repassword" id="repassword" placeholder="パスワード（再確認）" onkeyup="inputcheck()">
+          <br>
           {% with flash = get_flashed_messages() %}
             {% if flash[0] %}
-            <p>{{ flash[0] }}</p>
+            <p class="flash">{{ flash[0] }}</p>
             {% endif %}
           {% endwith %}
           <input type="submit" id="submit" value="登録" disabled>
