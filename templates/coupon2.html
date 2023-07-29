@@ -1,46 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>クーポン情報入力</title>
+    <title>qpON→GO - クーポン情報確認</title>
     <link rel="stylesheet" href="../static/css/coupon2.css">
 <body>
-    <!-- アップロードした写真を表示 -->
-    <img id="uploadedPhoto" src="#" alt="アップロードされた写真">
+    <img src="../static/img/logo.png">
+    <h1>クーポン情報確認</h1>
 
     <!-- お店の情報入力フォーム -->
-    <form id="shopInfoForm">
-        <label for="shopName">お店の名前：</label>
-        <input type="text" id="ShopName" required><br>
+    {% if result%}
+        <form id="shopInfoForm">
+            <label for="shopName">お店の名前：</label>
+            <input type="text" id="ShopName" name="shop" value={{result.store}} required><br>
 
-        <label for="discountAmount">　　割引額：</label>
-        <input type="text" id="DiscountAmount" required><br>
+            <label for="discountAmount">　　割引額：</label>
+            <input type="text" id="DiscountAmount" name="discount" value={{result.discount}} required><br>
 
-        <label for="expirationDate">　割引期限：</label>
-        <input type="date" id="ExpirationDate" required><br>
+            <label for="expirationDate">　割引期限：</label>
+            <input type="date" id="ExpirationDate" name="date" value={{result.date}} required><br>
 
-        <label for="category">カテゴリー：</label>
-        <input type="text" id="Category" required><br>
-    </form>
+            <label for="category">カテゴリー：</label>
+            <input type="text" id="Category" name="category" value={{result.category}} required><br>
+        </form>
+        {%else%}
+            {% with flash = get_flashed_messages() %}
+            {% if flash[0] %}
+            <p class="flash">{{ flash[0] }}</p>
+            {% else %}
+            <br>
+            {% endif %}
+            {% endwith %}
+    {%endif%}
 
     <!-- 決定ボタンと確認メッセージ -->
-    <p id="confirmationText">こちらで間違いがなければ決定してください。</p>
     <p id="confirmationText">間違いがあれば変更してください。</p>
-    <button id="Decision" onclick="navigateToQpComp()">決定</button>
-    
-    <script>
-        // ページが読み込まれた際にアップロードされた写真を表示
-        window.onload = function() {
-            const photoPreview = document.getElementById('uploadedPhoto');
-            const imageUrl = sessionStorage.getItem('uploadedImageUrl');
-            if (imageUrl) {
-                photoPreview.src = imageUrl;
-            }
-        };
-
-        // 決定ボタンをクリックした際にqpcomp.htmlに遷移
-        function navigateToQpComp() {
-            window.location.href = "qpcomp.html";
-        }
-    </script>
+    <p id="confirmationText">「決定」を押すと登録が完了します</p>
+    <input type="submit" href="/qpcomp" id="Decision" onclick="navigateToQpComp()" value="決定">
 </body>
 </html>

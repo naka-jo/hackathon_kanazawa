@@ -9,8 +9,16 @@ body{
 }
 
 img{
-    width:240px;
+    width:180px;
     height: auto;
+}
+
+h1{
+    font-size: 3rem;
+    padding-bottom:1%;
+    border-bottom: 6px double rgba(52, 73, 94);
+    margin: 0% 30%;
+    margin-bottom: 1%;
 }
 
 label{
@@ -22,6 +30,7 @@ label{
     padding:1%;
     width: 30%;
     font-size: 20px;
+    font-family: 'Font';
 }::placeholder{
     font-family: 'Font';
 }
@@ -30,7 +39,8 @@ label{
 }
 
 #Decision{
-    margin:1% 0%;
+    text-decoration: none;
+    margin:2% 0%;
     width:32%;
     padding:1%;
     font-size:20px;

@@ -76,13 +76,14 @@ def image_to_text(FoldaPath):
 
     # chatgpt部分
     # APIキーの設定
-    My_Key = "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" ##### 石戸莞楽のchatgptAPIなので悪用厳禁! (石戸莞楽のクレカから使用する分だけ料金が落とされるので、極力使わないこと!)
+    My_Key = "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" ##### 石戸莞楽のchatgptAPIなので悪用厳禁! (石戸莞楽のクレカから使用する分だけ料金が落とされるので、極力使わないこと!)
     openai.api_key = My_Key
 
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
             {"role": "user", "content": str(output) + "From this coupon transcription, please display the coupons in the order 'Expiration date, Discount amount, Store name, Category' separated by ',' and with no spaces between them."},
+            {"role": "system", "content": "The expiration date should be 'month/day'."},
             {"role": "system", "content": "The category should be one of the following seven: '飲食, ファッション, イベント, 旅行, ホビー・エンターテイメント, 健康・美容, その他'."},
             {"role": "system", "content": "When returning results, please do not indicate 'Expiration:', 'Discount:', 'Store Name:', or 'Category:'."},
             {"role": "system", "content": "If any of these elements are not mentioned, please leave them as None."},
@@ -114,3 +115,5 @@ def image_to_text(FoldaPath):
     }
 
     return(coupon_dict)
+
+# image_to_text("image_test")

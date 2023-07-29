@@ -17,7 +17,3 @@ def create_flask_mail(app):
         msg.body = "Hello Flask message sent from Flask-Mail"
         f_mail.send(msg)
         return None
-
-if __name__ == '__main__':
-    mail = create_flask_mail()
-    mail.run(host='0.0.0.0', port=5050, debug=True)

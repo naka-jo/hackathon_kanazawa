@@ -3,13 +3,14 @@ from classes.userdb import UserDB
 import classes.coupondb as CouponDB
 from classes.Image_to_Text import image_to_text as ImgString
 import classes.couponaction as CouponAction
-import uuid, json, os, base64, shutil
+import classes.date as Date
+import uuid, json, os, base64
 
 app = Flask(__name__, static_folder="./static")
 app.config["SECRET_KEY"] = str(uuid.uuid4().hex)
 
 # setup
-CouponAction.reset_cloud()
+# CouponAction.reset_cloud()
 # UserDB().reset()
 # CouponDB.reset()
 
@@ -57,53 +58,68 @@ def home(id):
       user_data = json.loads(CouponDB.select_db(id))
       return render_template("home.html", user_data=user_data)
     else:
-      return render_template("home.html")
+      return redirect(url_for("coupon", id=id))
 
 
 
-@app.route("/coupon", methods=["GET", "POST"])
-def coupon(): # クーポン登録画面
+@app.route("/coupon/<string:id>", methods=["GET", "POST"])
+def coupon(id): # クーポン登録画面
     if request.method == "GET":
       return render_template("coupon.html")
     else:
       images = request.files.getlist("image")
-      for image in images:
-        image.save(os.path.join("./cloud",image.filename))
-      if 0 < len(os.listdir("./cloud")) <= 2:
-        return redirect(url_for("coupon2"))
-      else:
-        CouponAction.reset_cloud()
-        flash("写真数が適切ではありません。リロードしてやり直してください")
-        return redirect(url_for("coupon"))
+      try:
+        for image in images:
+          image.save(os.path.join("./cloud",image.filename))
+      except:
+        if 0 < len(os.listdir("./cloud")) <= 2:
+          return redirect(url_for("coupon2", id=id))
+        else:
+          CouponAction.reset_cloud()
+          flash("写真数が適切ではありません。リロードしてやり直してください")
+          return redirect(url_for("coupon", id=id))
 
-@app.route("/camera", methods=["POST"])
-def camera(): # カメラで撮影された画像を保存
+@app.route("/camera/<string:id>", methods=["POST"])
+def camera(id): # カメラで撮影された画像を保存
     data = request.json
     if 'img' in data:
       image_data = base64.b64decode(data['img'])
       save_path = f"./cloud/{uuid.uuid4().hex}.jpg"
       with open(save_path, 'wb') as f:
           f.write(image_data)
-      return redirect(url_for("coupon"))
+      return redirect(url_for("coupon", id=id))
     else:
-      return redirect(url_for("coupon"))
+      return redirect(url_for("coupon", id=id))
 
 
 
-
-@app.route("/kakunin", methods=["GET", "POST"])
-def kakunin(): # 確認画面
-  fi = "image"
-  aa=ImgString(fi)
-  print(aa)
+@app.route("/coupon2/<string:id>", methods=["GET", "POST"])
+def coupon2(id): # 入力情報確認
   if request.method == 'GET':
-  #fi = "image"
-  # aa=Image_to_Text.image_to_text(fi)
-    print(aa)
-  #shutil.rmtree('image')
-    return render_template("coupon2.html")
+    try:
+      result = ImgString("./cloud")
+      result["date"] = str(Date.to_datetime(result["date"]))
+    except:
+      flash("クーポンが読み取れませんでした。手動入力をお願いします")
+    return render_template("coupon2.html", result=result)
   else:
-    return render_template("coupon2.html")
+    shop = request.form["shop"]
+    discount = request.form["discount"]
+    date= request.form["date"]
+    category = request.form["category"]
+
+    return redirect(url_for("qpcomp", id=id))
+
+
+
+@app.route("/coupon2/<string:id>", methods=["GET", "POST"])
+def qpcomp(id):
+  if request.method == 'GET':
+    render_template("qpcomp.html")
+  else:
+    redirect(url_for("qpcomp"))
+
+
 
 
 if __name__ == "__main__":
