@@ -1,0 +1,39 @@
+body{
+    background-color: #d8d8d8;
+    font-family: Font;
+}@font-face {
+	font-family: 'Font';
+	src: url(../komorebi-gothic-P.ttf);
+}
+
+.main{
+	text-align: center;
+	margin-top: 15%;
+}
+
+h1{
+	font-size: 50px;
+}
+
+button{
+    font-size: 20px;
+	display: block;
+    text-decoration: none;
+	width: 300px;
+    margin:0 auto;
+	margin-bottom: 20px;
+	padding: 1rem 4rem;
+	font-weight: bold;
+	border: 2px solid #bdff00;
+	border-radius: 100vh;
+	transition: 0.3s;
+}
+button:hover{
+	color: black;
+	background: #bdff00;
+}
+
+button:active{
+    color: black;
+    background: #fff;
+}
