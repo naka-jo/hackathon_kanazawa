@@ -11,8 +11,7 @@ import os
 def image_to_text(FoldaPath):
     # ocr部分
     # 画像ファイルを分析可能な形にしてjsonファイルに作り替える
-    subscription_key = "dbbdab1491fe4cf285d3e2ed1f334927" ##### 中村ゼミのocrAPIなので悪用厳禁! (ゼミのクレカから使用する分だけ料金が落とされるので、極力使わないこと!)
-    endpoint = "https://rnmuds.cognitiveservices.azure.com/" ##### 中村ゼミのocrAPIなので悪用厳禁!(ゼミのクレカから使用する分だけ料金が落とされるので、極力使わないこと!)
+    
     text_recognition_url = endpoint + "vision/v3.2/read/analyze"
     headers = {'Ocp-Apim-Subscription-Key': subscription_key,
             'Content-Type':'application/octet-stream'  }
