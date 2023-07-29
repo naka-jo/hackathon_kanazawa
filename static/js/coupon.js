@@ -1,10 +1,11 @@
 function filelen(){
     const images = document.getElementById("image").files;
     const submit = document.getElementById("submit");
-    if(images.length === 2){
-        submit.disabled = false;
+    const message = document.getElementById('message');
+    if(images.length <= 2 && 0 < images.length){
+        message.innerHTML = "画像を保存しました！";
     }else{
-        submit.disabled = true;
+        pass
     }
 }
 setInterval(filelen, 500);

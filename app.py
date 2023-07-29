@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from classes.userdb import UserDB
 import classes.coupondb as CouponDB
 from classes.Image_to_Text import image_to_text
-import uuid, json, os, base64
+import uuid, json, os, base64, shutil
 
 app = Flask(__name__, static_folder="./static")
 app.config["SECRET_KEY"] = str(uuid.uuid4().hex)
@@ -69,6 +69,8 @@ def coupon(): # クーポン登録画面
       if 0 < len(os.listdir("./cloud")) <= 2:
         return redirect(url_for("coupon2"))
       else:
+        shutil.rmtree("./cloud")
+        os.mkdir("./cloud")
         flash("写真数が適切ではありません。リロードしてやり直してください")
         return redirect(url_for("coupon"))
         
