@@ -55,7 +55,7 @@ td{
     padding: 1%;
 }
 
-button{
+input{
     font-size: 15px;
     text-decoration: none;
 	width: 250px;
@@ -67,12 +67,12 @@ button{
 	border-radius: 100vh;
 	transition: 0.3s;
 }
-button:hover{
+input:hover{
 	color: black;
 	background: #bdff00;
 }
 
-button:active{
+input:active{
     color: black;
     background: #fff;
 }

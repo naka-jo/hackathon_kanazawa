@@ -116,4 +116,3 @@ def image_to_text(FoldaPath):
 
     return(coupon_dict)
 
-# image_to_text("image_test")

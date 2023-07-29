@@ -72,12 +72,14 @@ def coupon(id): # クーポン登録画面
         for image in images:
           image.save(os.path.join("./cloud",image.filename))
       except:
+        pass
+      finally:
         if 0 < len(os.listdir("./cloud")) <= 2:
           return redirect(url_for("coupon2", id=id))
         else:
           CouponAction.reset_cloud()
           flash("写真数が適切ではありません。リロードしてやり直してください")
-          return redirect(url_for("coupon", id=id))
+          return redirect(url_for("home", id=id))
 
 @app.route("/camera/<string:id>", methods=["POST"])
 def camera(id): # カメラで撮影された画像を保存
@@ -96,28 +98,23 @@ def camera(id): # カメラで撮影された画像を保存
 @app.route("/coupon2/<string:id>", methods=["GET", "POST"])
 def coupon2(id): # 入力情報確認
   if request.method == 'GET':
-    try:
-      result = ImgString("./cloud")
-      result["date"] = str(Date.to_datetime(result["date"]))
-    except:
-      flash("クーポンが読み取れませんでした。手動入力をお願いします")
-    return render_template("coupon2.html", result=result)
+      try:
+        result = ImgString("./cloud")
+        result["date"] = str(Date.to_datetime(result["date"]))
+      except:
+        flash("クーポンが読み取れませんでした。手動入力をお願いします")
+        return render_template("coupon2.html")
+      return render_template("coupon2.html", result=result)
   else:
     shop = request.form["shop"]
     discount = request.form["discount"]
     date= request.form["date"]
     category = request.form["category"]
+    remarks = "なし"
+    CouponDB.insert_db(id, (1, date, discount, shop, category, remarks))
+    CouponAction.reset_cloud()
+    return redirect(url_for("home", id=id))
 
-    return redirect(url_for("qpcomp", id=id))
-
-
-
-@app.route("/coupon2/<string:id>", methods=["GET", "POST"])
-def qpcomp(id):
-  if request.method == 'GET':
-    render_template("qpcomp.html")
-  else:
-    redirect(url_for("qpcomp"))
 
 
 

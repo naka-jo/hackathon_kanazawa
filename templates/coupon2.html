@@ -8,7 +8,7 @@
     <h1>クーポン情報確認</h1>
 
     <!-- お店の情報入力フォーム -->
-    {% if result%}
+    {% if result %}
         <form id="shopInfoForm">
             <label for="shopName">お店の名前：</label>
             <input type="text" id="ShopName" name="shop" value={{result.store}} required><br>
@@ -22,19 +22,21 @@
             <label for="category">カテゴリー：</label>
             <input type="text" id="Category" name="category" value={{result.category}} required><br>
         </form>
-        {%else%}
-            {% with flash = get_flashed_messages() %}
-            {% if flash[0] %}
-            <p class="flash">{{ flash[0] }}</p>
-            {% else %}
-            <br>
-            {% endif %}
-            {% endwith %}
+        <p id="confirmationText">間違いがあれば変更してください。</p>
+        <p id="confirmationText">「決定」を押すと登録が完了します</p>
+        <input type="submit" id="Decision" value="決定">
+
+    {%else%}
+        {% with flash = get_flashed_messages() %}
+        {% if flash[0] %}
+        <p class="flash">{{ flash[0] }}</p>
+        <input type="submit" id="Decision" value="OK">
+        {% else %}
+        <br>
+        {% endif %}
+        {% endwith %}
     {%endif%}
 
     <!-- 決定ボタンと確認メッセージ -->
-    <p id="confirmationText">間違いがあれば変更してください。</p>
-    <p id="confirmationText">「決定」を押すと登録が完了します</p>
-    <input type="submit" href="/qpcomp" id="Decision" onclick="navigateToQpComp()" value="決定">
-</body>
+    </body>
 </html>
