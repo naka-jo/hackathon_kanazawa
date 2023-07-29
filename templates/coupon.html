@@ -17,10 +17,10 @@
         {% endwith %}
         <form method="POST" enctype="multipart/form-data">
             <div class="camera">
-                <h2>Enterキーを押すと写真撮影</h2>
                 <video id="video" autoplay width="400px" height="300px"></video>
                 <canvas id="canvas" width="0px" height="0px"></canvas>
             </div>
+            <p class="enter">Enterキーを押すと写真撮影</p><br>
             <input type="file" name="image" accept="image/*" multiple>
             <input type="submit" id="submit" value="決定">
         </form>

@@ -1,3 +1,14 @@
+body{
+    text-align: center;
+    background-color: #d8d8d8;
+}
+
+.enter{
+    font-size: 20px;
+    display: inline-block;
+    border-bottom: 6px solid #bdff00;
+}
+
 #canvas{
     visibility: hide;
 }
