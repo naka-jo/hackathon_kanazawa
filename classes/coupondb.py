@@ -51,8 +51,9 @@ def delete_table(table, id): # データを消去
     conn.commit()
     conn.close()
     
-def drop_db(): # テーブルを削除
-    os.remove('./database/coupon.db')
+def reset(): # テーブルを削除
+    if os.path.exists("./database/coupon.db"):
+        os.remove('./database/coupon.db')
 
 # dbname = "coupon"
 # table = "kanra"

@@ -1,14 +1,17 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from classes.userdb import UserDB
 import classes.coupondb as CouponDB
-from classes.Image_to_Text import image_to_text
+from classes.Image_to_Text import image_to_text as ImgString
+import classes.couponaction as CouponAction
 import uuid, json, os, base64, shutil
 
 app = Flask(__name__, static_folder="./static")
 app.config["SECRET_KEY"] = str(uuid.uuid4().hex)
+
+# setup
+CouponAction.reset_cloud()
 # UserDB().reset()
-# if os.path.exists("./database/coupon.db"):
-#   CouponDB.drop_db()
+# CouponDB.reset()
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -69,11 +72,9 @@ def coupon(): # クーポン登録画面
       if 0 < len(os.listdir("./cloud")) <= 2:
         return redirect(url_for("coupon2"))
       else:
-        shutil.rmtree("./cloud")
-        os.mkdir("./cloud")
+        
         flash("写真数が適切ではありません。リロードしてやり直してください")
         return redirect(url_for("coupon"))
-        
 
 @app.route("/camera", methods=["POST"])
 def camera(): # カメラで撮影された画像を保存
@@ -86,7 +87,10 @@ def camera(): # カメラで撮影された画像を保存
       return redirect(url_for("coupon"))
     else:
       return redirect(url_for("coupon"))
-      
+
+
+
+
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5596, debug=True)
