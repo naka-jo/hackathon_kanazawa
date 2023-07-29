@@ -1,0 +1,78 @@
+body{
+    font-family: Font;
+    color:rgba(52, 73, 94);
+    background-color: rgba(255,246,208);
+}@font-face {
+	font-family: 'Font';
+	src: url(../komorebi-gothic-P.ttf);
+}
+
+img{
+    margin-top: 1%;
+    margin-left: 1%;
+    float: left;
+    width: 100px;
+}
+
+h1{
+    margin-bottom: 0%;
+    margin-top: 1.5%;
+    display: inline-block;
+    font-size: 70px;
+    font-weight: bold;
+    border-bottom: 6px double rgba(52, 73, 94);
+}
+
+.edit{
+    margin-right: 2%;
+    text-align: right;
+}
+
+.main{
+    margin: 0 auto;
+}
+
+th,td {
+    border: solid ;  /* 枠線指定 */      /* 余白指定 */
+}
+
+table {
+    background-color: #fff;
+    text-align: center;
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
+    border-collapse:  collapse; /* セルの線を重ねる */
+}
+
+th{
+    font-size: 25px;
+    font-weight: bold;
+    padding: 1%;
+}
+td{
+    font-size: 25px;
+    padding: 1%;
+}
+
+button{
+    font-size: 15px;
+    text-decoration: none;
+	width: 250px;
+    margin:0 auto;
+	margin-bottom: 5px;
+	padding: 1rem 4rem;
+	font-weight: bold;
+	border: 2px solid #bdff00;
+	border-radius: 100vh;
+	transition: 0.3s;
+}
+button:hover{
+	color: black;
+	background: #bdff00;
+}
+
+button:active{
+    color: black;
+    background: #fff;
+}
