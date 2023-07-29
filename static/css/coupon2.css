@@ -1,0 +1,43 @@
+body{
+    font-family: Font;
+    text-align: center;
+    color:rgba(52, 73, 94);
+    background-color: rgba(255,246,208);
+}@font-face {
+	font-family: 'Font';
+	src: url(../komorebi-gothic-P.ttf);
+}
+
+img{
+    width:240px;
+    height: auto;
+}
+
+label{
+    font-size: 20px;
+}
+
+#ShopName, #DiscountAmount, #ExpirationDate, #Category{
+    margin:1% 0%;
+    padding:1%;
+    width: 30%;
+    font-size: 20px;
+}::placeholder{
+    font-family: 'Font';
+}
+#confirmationText{
+    font-size: 20px;
+}
+
+#Decision{
+    margin:1% 0%;
+    width:32%;
+    padding:1%;
+    font-size:20px;
+    font-family: 'Font';
+    background-color: rgba(52, 73, 94);
+    color:rgba(255,246,208);
+    opacity: 1;
+}#Decision:disabled{
+    opacity: 0.8;
+}

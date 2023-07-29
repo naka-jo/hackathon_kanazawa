@@ -72,7 +72,7 @@ def coupon(): # クーポン登録画面
       if 0 < len(os.listdir("./cloud")) <= 2:
         return redirect(url_for("coupon2"))
       else:
-        
+        CouponAction.reset_cloud()
         flash("写真数が適切ではありません。リロードしてやり直してください")
         return redirect(url_for("coupon"))
 
@@ -90,6 +90,20 @@ def camera(): # カメラで撮影された画像を保存
 
 
 
+
+@app.route("/kakunin", methods=["GET", "POST"])
+def kakunin(): # 確認画面
+  fi = "image"
+  aa=ImgString(fi)
+  print(aa)
+  if request.method == 'GET':
+  #fi = "image"
+  # aa=Image_to_Text.image_to_text(fi)
+    print(aa)
+  #shutil.rmtree('image')
+    return render_template("coupon2.html")
+  else:
+    return render_template("coupon2.html")
 
 
 if __name__ == "__main__":

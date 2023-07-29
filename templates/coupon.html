@@ -12,18 +12,16 @@
             {% if flash[0] %}
             <p class="flash">{{ flash[0] }}</p>
             {% else %}
-            <br>
+            <p id="message"></p>
             {% endif %}
         {% endwith %}
         <form method="POST" enctype="multipart/form-data">
             <div class="camera">
                 <h2>Enterキーを押すと写真撮影</h2>
                 <video id="video" autoplay width="400px" height="300px"></video>
-                
+                <canvas id="canvas" width="0px" height="0px"></canvas>
             </div>
-            <input type="file" id="image" accept="image/*" multiple>
-            <p id="message"></p>
-            <canvas id="canvas" width="0px" height="0px"></canvas>
+            <input type="file" name="image" accept="image/*" multiple>
             <input type="submit" id="submit" value="決定">
         </form>
         
