@@ -75,7 +75,6 @@ def image_to_text(FoldaPath):
 
     # chatgpt部分
     # APIキーの設定
-    My_Key = "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" ##### 石戸莞楽のchatgptAPIなので悪用厳禁! (石戸莞楽のクレカから使用する分だけ料金が落とされるので、極力使わないこと!)
     openai.api_key = My_Key
 
     response = openai.ChatCompletion.create(
